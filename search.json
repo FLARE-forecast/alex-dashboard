@@ -53,7 +53,7 @@
     "href": "index.html#current-water-conditions",
     "title": "Current Conditions",
     "section": "Current Water Conditions",
-    "text": "Current Water Conditions\n Conditions are valid for 2025-03-06 20:10:00 \n\n\n\n\n\n\n\n\n\n\nCurrent Water Temperature\n21.4 °C\n\n\n\n\n\n\n\n\n\n\n\n\n\nCurrent Salinity\n0.4 ppt\n\n\n\n\n\n\n\n\n\n\n\n\nCurrent Lake Height\n5.8 AHD\n\n\n\n\n\n\n\n\n\n\n\nAverage Wind Conditions (last 6 hours)\n\n\n\n\n\n\n\n\n\nAverage Wind Speed\n32.58  km/hr\n\n\n\n\n\n\n\n\n\n\n\n\n\nAverage Wind Direction\nSSE\n\n\n\n\n\n\n\n\n\n\n\nComparison of Water Conditions to Historical Mean\n\n\n\n\n\n\n\n\n\nWater Temperature\nSimilar\n\n\n\n\n\n\n\n\n\n\n\n\nWater Salinity\nSimilar\n\n\n\n\n\n\n\n\n\n\n\n\nLake Height\nLower\n\n\n\n\n\n\n\n\n\n\n\nPast 10-day Direction of Change\n\n\n\n\n\n\n\n\n\nWater Temperature\nNo Change\n\n\n\n\n\n\n\n\n\n\n\n\nWater Salinity\nIncreasing\n\n\n\n\n\n\n\n\n\n\n\n\nLake Height\nNo Change"
+    "text": "Current Water Conditions\n Conditions are valid for 2025-03-07 20:10:00 \n\n\n\n\n\n\n\n\n\n\nCurrent Water Temperature\n21.1 °C\n\n\n\n\n\n\n\n\n\n\n\n\n\nCurrent Salinity\n0.4 ppt\n\n\n\n\n\n\n\n\n\n\n\n\nCurrent Lake Height\n5.8 AHD\n\n\n\n\n\n\n\n\n\n\n\nAverage Wind Conditions (last 6 hours)\n\n\n\n\n\n\n\n\n\nAverage Wind Speed\n17.95  km/hr\n\n\n\n\n\n\n\n\n\n\n\n\n\nAverage Wind Direction\nS\n\n\n\n\n\n\n\n\n\n\n\nComparison of Water Conditions to Historical Mean\n\n\n\n\n\n\n\n\n\nWater Temperature\nSimilar\n\n\n\n\n\n\n\n\n\n\n\n\nWater Salinity\nSimilar\n\n\n\n\n\n\n\n\n\n\n\n\nLake Height\nSimilar\n\n\n\n\n\n\n\n\n\n\n\nPast 10-day Direction of Change\n\n\n\n\n\n\n\n\n\nWater Temperature\nNo Change\n\n\n\n\n\n\n\n\n\n\n\n\nWater Salinity\nIncreasing\n\n\n\n\n\n\n\n\n\n\n\n\nLake Height\nNo Change"
   },
   {
     "objectID": "index.html#forecasted-conditions",
@@ -67,7 +67,7 @@
     "href": "index.html#where-is-this-data-coming-from",
     "title": "Current Conditions",
     "section": "Where is this data coming from?",
-    "text": "Where is this data coming from?\nThe observed data are from SA Water at the locations in the map below\n\n\n\n\n\n\n  This material is based upon work supported by the National Science Foundation under Grant OISE-2330211. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.  \nWe would like to acknowledge Water Data SA for providing observational data for the forecasts presented on this dashboard.  \nPage last updated on 2025-03-06"
+    "text": "Where is this data coming from?\nThe observed data are from SA Water at the locations in the map below\n\n\n\n\n\n\n  This material is based upon work supported by the National Science Foundation under Grant OISE-2330211. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.  \nWe would like to acknowledge Water Data SA for providing observational data for the forecasts presented on this dashboard.  \nPage last updated on 2025-03-07"
   },
   {
     "objectID": "water.html",
