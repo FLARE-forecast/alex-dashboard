@@ -118,6 +118,7 @@ dashboard_plotting_tool <- function(data, historic_data, depths = 0.5, tzone = "
     pull(doy)
   
   obs_climatology <- obs_hist_full |>
+    filter(datetime < min(combined_tibble$datetime)) |> 
     mutate(datetime = lubridate::force_tz(datetime, tzone = tzone)) |>
     mutate(doy = lubridate::yday(datetime)) |>
     filter(doy %in% interest_days_doy) |>
@@ -202,7 +203,7 @@ dashboard_plotting_tool <- function(data, historic_data, depths = 0.5, tzone = "
                                   limits = ylims) +
       ggplot2::labs(x = "Date",
                     y = var_unit,
-                    title = paste0(var_title," Forecast, ", lubridate::date(most_recent)), '(30-days ahead)') +
+                    title = paste0(var_title," Forecast, ", lubridate::date(most_recent), ' (30-days ahead)')) +
       # scale_colour_manual("", 
       #                     values = c("forecast_mean"="black", `historical mean` ="darkslategrey")) +
       scale_color_manual("", values = c("Future Predictions With No Change To Barrage Gates"="black", 
