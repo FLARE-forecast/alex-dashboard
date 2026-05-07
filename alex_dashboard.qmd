@@ -52,6 +52,18 @@ obs_cleaned <- readr::read_csv(insitu_obs_url) |>
   lubridate::with_tz(datetime, tzone = timezone)
 
 obs_updated <- max(obs_cleaned$datetime,na.rm = TRUE)
+
+
+#### define s3 bucket and calculate recent forecast ##
+s3_score <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare/scores/parquet", endpoint_override = "amnh1.osn.mghpcc.org", anonymous = TRUE)
+s3_forecast <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare/forecasts/parquet", endpoint_override = "amnh1.osn.mghpcc.org", anonymous = TRUE)
+
+most_recent <-  arrow::open_dataset(s3_score) |> 
+  filter(site_id %in% c(interest_site), 
+         model_id == model_identifier) |>
+  summarize(max = max(reference_datetime)) |> 
+  collect() |> 
+  pull()
 ```
 
 ```{r}
@@ -76,9 +88,9 @@ current_temp <- temp_df |>
 
 temp_clim_values <- climatology_calc(obs_df = temp_df, day_of_interest = temp_updated, clim_var = interest_var) ## returns CLIM AVG and BS ICON FOR ARROW DIRECTION
 
-temp_trend_future <- future_trend_calc(day_of_interest = temp_updated, interest_var = 'temperature', days_ahead = day_range, interest_site = interest_site)
+temp_trend_future <- future_trend_calc(day_of_interest = most_recent, interest_var = 'temperature', days_ahead = day_range, interest_site = interest_site)
 
-temp_trend_historic <- historic_trend_calc(day_of_interest = temp_updated, interest_var = 'temperature', days_historic = day_range, interest_site = interest_site)
+temp_trend_historic <- historic_trend_calc(day_of_interest = most_recent, interest_var = 'temperature', days_historic = day_range, interest_site = interest_site)
 ```
 
 ```{r}
@@ -99,9 +111,9 @@ current_salt <- salt_df |>
 
 salt_clim_values <- climatology_calc(obs_df = salt_df, day_of_interest = salt_updated, clim_var = interest_var)
 
-salt_trend_future <- future_trend_calc(day_of_interest = salt_updated, interest_var = interest_var, days_ahead = day_range, interest_site = interest_site)
+salt_trend_future <- future_trend_calc(day_of_interest = most_recent, interest_var = interest_var, days_ahead = day_range, interest_site = interest_site)
 
-salt_trend_historic <- historic_trend_calc(day_of_interest = temp_updated, interest_var = interest_var, days_historic = day_range, interest_site = interest_site)
+salt_trend_historic <- historic_trend_calc(day_of_interest = most_recent, interest_var = interest_var, days_historic = day_range, interest_site = interest_site)
 ```
 
 ```{r}
@@ -122,9 +134,9 @@ current_depth <- depth_df |>
 
 height_clim_values <- climatology_calc(obs_df = depth_df, day_of_interest = depth_updated, clim_var = interest_var)
 
-height_trend_future <- future_trend_calc(day_of_interest = depth_updated, interest_var = interest_var, days_ahead = day_range, interest_site = interest_site)
+height_trend_future <- future_trend_calc(day_of_interest = most_recent, interest_var = interest_var, days_ahead = day_range, interest_site = interest_site)
 
-height_trend_historic <- historic_trend_calc(day_of_interest = temp_updated, interest_var = interest_var, days_historic = day_range, interest_site = interest_site)
+height_trend_historic <- historic_trend_calc(day_of_interest = most_recent, interest_var = interest_var, days_historic = day_range, interest_site = interest_site)
 
 ```
 
@@ -433,8 +445,8 @@ library(tidyverse)
 library(arrow)
 source('./R/dashboard_plotting_tool.R')
 
-s3_score <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare/scores/parquet", endpoint_override = "amnh1.osn.mghpcc.org", anonymous = TRUE)
-s3_forecast <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare/forecasts/parquet", endpoint_override = "amnh1.osn.mghpcc.org", anonymous = TRUE)
+# s3_score <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare/scores/parquet", endpoint_override = "amnh1.osn.mghpcc.org", anonymous = TRUE)
+# s3_forecast <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare/forecasts/parquet", endpoint_override = "amnh1.osn.mghpcc.org", anonymous = TRUE)
 
 # obs_cleaned <- readr::read_csv(insitu_obs_url) |> 
 #   filter(variable %in% c('temperature','salt',"depth")) |> ##insitu sensors and met 
@@ -442,12 +454,12 @@ s3_forecast <- arrow::s3_bucket(bucket = "bio230121-bucket01/flare/forecasts/par
 #   collect() |> 
 #   lubridate::with_tz(datetime, tzone = timezone)
 
-most_recent <-  arrow::open_dataset(s3_score) |> 
-  filter(site_id %in% c(interest_site), 
-         model_id == model_identifier) |>
-  summarize(max = max(reference_datetime)) |> 
-  collect() |> 
-  pull()
+# most_recent <-  arrow::open_dataset(s3_score) |> 
+#   filter(site_id %in% c(interest_site), 
+#          model_id == model_identifier) |>
+#   summarize(max = max(reference_datetime)) |> 
+#   collect() |> 
+#   pull()
 
 #source('R/alex_target_generation.R')
 
