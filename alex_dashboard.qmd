@@ -890,10 +890,13 @@ future_met_df_em_avg$wind_deg_obs <- NA
 future_met_df_em_avg$wind_speed_obs <- NA
 
 full_met_data_df <- dplyr::bind_rows(historical_met_df, future_met_df_em_avg) |> 
-mutate(wind_speed = wind_speed*3.6,
-wind_speed_obs = wind_speed_obs * 3.6, 
-date = as.Date(datetime))  |> # convert wind to km/hr
-filter(!(date == noaa_date & is.na(wind_deg_obs)))
+  mutate(wind_speed = wind_speed*3.6,
+         wind_speed_obs = wind_speed_obs * 3.6, 
+         date = as.Date(datetime))  |> # convert wind to km/hr
+  filter(!(date == noaa_date & is.na(wind_deg_obs))) |> 
+  mutate(datetime = datetime + lubridate::days(4), ## REMOVE THIS WHEN NOAA DOWNLOADS ARE BACK
+         date = date + lubridate::days(4))
+  
 ```
 
 ```{r, include=TRUE}
@@ -902,6 +905,7 @@ filter(!(date == noaa_date & is.na(wind_deg_obs)))
 #| out-width: 100%
 #| padding: 2px
 # make wind plot with arrows 
+most_recent <- lubridate::as_datetime('2026-05-15') ## REMOVE THIS AFTER NOAA DOWNLOADS FIXED
 
 wind_plot_df <- full_met_data_df |> 
   filter(datetime > (lubridate::with_tz(most_recent, tzone = timezone) - lubridate::days(3)),
@@ -1008,9 +1012,9 @@ at_min_ylim <- round(min(full_met_data_df$air_temp, na.rm = TRUE)) - 3
 at_ylims <- c(at_min_ylim, at_max_ylim)
 
 at_plot <- ggplot2::ggplot(full_met_data_df, ggplot2::aes(x = datetime)) +
+  ggplot2::geom_line(ggplot2::aes(y = air_temp), color = 'black') +
   ggplot2::ylim(at_ylims) +
   ggplot2::xlim(most_recent - lubridate::days(10), most_recent + lubridate::days(14)) +
-  ggplot2::geom_line(ggplot2::aes(y = air_temp), color = 'black') +
   #ggplot2::geom_point(ggplot2::aes(x = datetime, y = wind_deg_obs), color = 'red') +
   ggplot2::geom_vline(aes(xintercept = most_recent),
                       alpha = 1, linetype = "dashed") +
