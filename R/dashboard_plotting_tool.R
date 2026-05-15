@@ -1,6 +1,6 @@
 ## function code 
 
-dashboard_plotting_tool <- function(data, historic_data, depths = 0.5, tzone = "America/New_York", ylims = c(-5,35), site_name = "", obs_hist, historical_horizon, forecast_horizon_confidence){
+dashboard_plotting_tool <- function(data, historic_data, depths = 0.5, tzone = "America/New_York", ylims = c(-5,35), site_name = "", obs_hist, historical_horizon, forecast_horizon_confidence, title_date){
   
   data_var <- unique(data$variable)
   num_depths <- length(unique(data$depth))
@@ -170,7 +170,7 @@ dashboard_plotting_tool <- function(data, historic_data, depths = 0.5, tzone = "
                     y = var_unit,
                     fill = 'Depth (m)',
                     color = 'Depth',
-                    title = paste0(var_title," Forecast, ", lubridate::date(most_recent)), '(30-days ahead)') +
+                    title = paste0(var_title," Forecast, ", lubridate::date(title_date)), '(30-days ahead)') +
       ggplot2::theme(axis.text.x = ggplot2::element_text(size = 10),
                      plot.title = element_text(hjust = 0.5))
     
@@ -203,7 +203,7 @@ dashboard_plotting_tool <- function(data, historic_data, depths = 0.5, tzone = "
                                   limits = ylims) +
       ggplot2::labs(x = "Date",
                     y = var_unit,
-                    title = paste0(var_title," Forecast, ", lubridate::date(most_recent), ' (30-days ahead)')) +
+                    title = paste0(var_title," Forecast, ", lubridate::date(title_date), ' (30-days ahead)')) +
       # scale_colour_manual("", 
       #                     values = c("forecast_mean"="black", `historical mean` ="darkslategrey")) +
       scale_color_manual("", values = c("Future Predictions With No Change To Barrage Gates"="black", 
