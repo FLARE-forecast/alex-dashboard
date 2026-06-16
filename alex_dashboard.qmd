@@ -905,7 +905,7 @@ full_met_data_df <- dplyr::bind_rows(historical_met_df, future_met_df_em_avg) |>
 #| out-width: 100%
 #| padding: 2px
 # make wind plot with arrows 
-most_recent <- lubridate::as_datetime('2026-05-15') ## REMOVE THIS AFTER NOAA DOWNLOADS FIXED
+#most_recent <- lubridate::as_datetime('2026-05-15') ## REMOVE THIS AFTER NOAA DOWNLOADS FIXED
 
 wind_plot_df <- full_met_data_df |> 
   filter(datetime > (lubridate::with_tz(most_recent, tzone = timezone) - lubridate::days(3)),
