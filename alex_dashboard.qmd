@@ -555,7 +555,7 @@ min_vals <- c(min(forecast_combined$quantile10), min(forecast_combined$down_q10)
 
 ylim_adjusted <- c(min(min_vals) - 0.1, max(max_vals) + 0.1)
 
-dashboard_plotting_tool(data = forecast_combined, historic_data = score_df_historic, depths = c(NA), tzone = timezone, ylims = ylim_adjusted, site_name = interest_site, obs_hist = obs_df, historical_horizon = historical_horizon, forecast_horizon_confidence = 10, title_date = '2026-05-15')
+dashboard_plotting_tool(data = forecast_combined, historic_data = score_df_historic, depths = c(NA), tzone = timezone, ylims = ylim_adjusted, site_name = interest_site, obs_hist = obs_df, historical_horizon = historical_horizon, forecast_horizon_confidence = 10, title_date = most_recent)
 ```
 
 
@@ -650,7 +650,7 @@ max_vals <- c(max(score_df_historic$quantile90), max(forecast_combined$up_q90), 
 
 ylim_adjusted <- c(0, round(max(max_vals) + 0.1, digits = 2))
 
-dashboard_plotting_tool(data = forecast_combined, historic_data = score_df_historic, depths = c(0.5), tzone = timezone, ylims = ylim_adjusted, site_name = interest_site, obs_hist = obs_df, historical_horizon = historical_horizon, forecast_horizon_confidence = 10, title_date = '2026-05-15')
+dashboard_plotting_tool(data = forecast_combined, historic_data = score_df_historic, depths = c(0.5), tzone = timezone, ylims = ylim_adjusted, site_name = interest_site, obs_hist = obs_df, historical_horizon = historical_horizon, forecast_horizon_confidence = 10, title_date = most_recent)
 ```
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
@@ -733,7 +733,7 @@ if (ylim_adjusted[1] < 0){
   ylim_adjusted <- c(0,max(max_vals) + 10)
 }
   
-dashboard_plotting_tool(data = forecast_combined, historic_data = score_df_historic, depths = c(0.5), tzone = timezone, ylims = ylim_adjusted, site_name = interest_site, obs_hist = obs_df, historical_horizon = historical_horizon, forecast_horizon_confidence = 10, title_date = '2026-05-15')
+dashboard_plotting_tool(data = forecast_combined, historic_data = score_df_historic, depths = c(0.5), tzone = timezone, ylims = ylim_adjusted, site_name = interest_site, obs_hist = obs_df, historical_horizon = historical_horizon, forecast_horizon_confidence = 10, title_date = most_recent)
 
 ```
 
@@ -905,7 +905,6 @@ full_met_data_df <- dplyr::bind_rows(historical_met_df, future_met_df_em_avg) |>
 #| out-width: 100%
 #| padding: 2px
 # make wind plot with arrows 
-#most_recent <- lubridate::as_datetime('2026-05-15') ## REMOVE THIS AFTER NOAA DOWNLOADS FIXED
 
 wind_plot_df <- full_met_data_df |> 
   filter(datetime > (lubridate::with_tz(most_recent, tzone = timezone) - lubridate::days(3)),
