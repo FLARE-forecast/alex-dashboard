@@ -504,8 +504,8 @@ forecast_df_up_scenario <- arrow::open_dataset(s3_forecast) |>
     dplyr::collect() |> 
   group_by(reference_datetime, datetime, depth, variable, site_id, model_id) |> 
   mutate(up_median = median(prediction, na.rm = TRUE) - 5.3,
-         up_q10 = quantile(prediction, 0.1) - 5.3,
-         up_q90 = quantile(prediction, 0.9) - 5.3) |> 
+         up_q10 = quantile(prediction, 0.1, na.rm = TRUE) - 5.3,
+         up_q90 = quantile(prediction, 0.9, na.rm = TRUE) - 5.3) |> 
   ungroup() |> 
   distinct(reference_datetime, datetime, depth, variable, site_id, model_id, .keep_all = TRUE) |> 
   select(reference_datetime, datetime, depth, variable, up_median, up_q10, up_q90)
@@ -522,8 +522,8 @@ forecast_df_down_scenario <- arrow::open_dataset(s3_forecast) |>
     dplyr::collect() |> 
   group_by(reference_datetime, datetime, depth, variable, site_id, model_id) |> 
   mutate(down_median = median(prediction, na.rm = TRUE) - 5.3,
-         down_q10 = quantile(prediction, 0.1) - 5.3,
-         down_q90 = quantile(prediction, 0.9) - 5.3) |> 
+         down_q10 = quantile(prediction, 0.1, na.rm = TRUE) - 5.3,
+         down_q90 = quantile(prediction, 0.9, na.rm = TRUE) - 5.3) |> 
   ungroup() |> 
   distinct(reference_datetime, datetime, depth, variable, site_id, model_id, .keep_all = TRUE) |> 
   select(reference_datetime, datetime, depth, variable, down_median, down_q10, down_q90)
@@ -595,8 +595,8 @@ forecast_df_up_scenario <- arrow::open_dataset(s3_forecast) |>
     dplyr::collect() |> 
   group_by(reference_datetime, datetime, depth, variable, site_id, model_id) |> 
   mutate(up_median = median(prediction, na.rm = TRUE),
-         up_q10 = quantile(prediction, 0.1),
-         up_q90 = quantile(prediction, 0.9)) |> 
+         up_q10 = quantile(prediction, 0.1, na.rm = T),
+         up_q90 = quantile(prediction, 0.9, na.rm = T)) |> 
   ungroup() |> 
   distinct(reference_datetime, datetime, depth, variable, site_id, model_id, .keep_all = TRUE) |> 
   select(reference_datetime, datetime, depth, variable, up_median, up_q10, up_q90)
@@ -614,8 +614,8 @@ forecast_df_down_scenario <- arrow::open_dataset(s3_forecast) |>
     dplyr::collect() |> 
   group_by(reference_datetime, datetime, depth, variable, site_id, model_id) |> 
   mutate(down_median = median(prediction, na.rm = TRUE),
-         down_q10 = quantile(prediction, 0.1),
-         down_q90 = quantile(prediction, 0.9)) |> 
+         down_q10 = quantile(prediction, 0.1, na.rm = T),
+         down_q90 = quantile(prediction, 0.9, na.rm = T)) |> 
   ungroup() |> 
   distinct(reference_datetime, datetime, depth, variable, site_id, model_id, .keep_all = TRUE) |> 
   select(reference_datetime, datetime, depth, variable, down_median, down_q10, down_q90)
@@ -680,8 +680,8 @@ forecast_df_up_scenario <- arrow::open_dataset(s3_forecast) |>
     dplyr::collect() |> 
   group_by(reference_datetime, datetime, depth, variable, site_id, model_id) |> 
   mutate(up_median = median(prediction, na.rm = TRUE),
-         up_q10 = quantile(prediction, 0.1),
-         up_q90 = quantile(prediction, 0.9)) |> 
+         up_q10 = quantile(prediction, 0.1, na.rm = T),
+         up_q90 = quantile(prediction, 0.9, na.rm = T)) |> 
   ungroup() |> 
   distinct(reference_datetime, datetime, depth, variable, site_id, model_id, .keep_all = TRUE) |> 
   select(reference_datetime, datetime, depth, variable, up_median, up_q10, up_q90)
@@ -699,8 +699,8 @@ forecast_df_down_scenario <- arrow::open_dataset(s3_forecast) |>
     dplyr::collect() |> 
   group_by(reference_datetime, datetime, depth, variable, site_id, model_id) |> 
   mutate(down_median = median(prediction, na.rm = TRUE),
-         down_q10 = quantile(prediction, 0.1),
-         down_q90 = quantile(prediction, 0.9)) |> 
+         down_q10 = quantile(prediction, 0.1, na.rm = T),
+         down_q90 = quantile(prediction, 0.9, na.rm = T)) |> 
   ungroup() |> 
   distinct(reference_datetime, datetime, depth, variable, site_id, model_id, .keep_all = TRUE) |> 
   select(reference_datetime, datetime, depth, variable, down_median, down_q10, down_q90)
